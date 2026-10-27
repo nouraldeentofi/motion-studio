@@ -1,5 +1,7 @@
 # استوديو الموشن (Nour Motion Studio)
 
+**جرّبه هون:** https://nouraldeentofi.github.io/motion-studio/
+
 موقع لصناعة فيديوهات موشن جرافيك من قوالب جاهزة. بيشتغل كامل جوا المتصفح:
 ما في API key، ما في سيرفر، ما في اشتراك. التصدير لـ MP4 بيصير على جهاز المستخدم نفسه.
 
@@ -30,6 +32,9 @@ python3 -m http.server 8000
 ## الاستضافة ببلاش
 
 الموقع ملفات ثابتة بس (HTML و CSS و JS)، فبيشتغل على GitHub Pages أو Netlify أو Cloudflare Pages بدون أي إعداد.
+
+النسخة المنشورة بتنبني من فرع `gh-pages`، فأي تعديل لازم ينرفع على `main` و `gh-pages` سوا
+(أو غيّر المصدر لـ `main` من Settings ← Pages).
 
 ## المتصفحات
 
