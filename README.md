@@ -1,6 +1,6 @@
 # استوديو الموشن (Nour Motion Studio)
 
-**جرّبه هون:** https://nouraldeentofi.github.io/motion-studio/
+**جرّبه هون:** https://studio.nouraldeentofi.com · (نسخة GitHub Pages: https://nouraldeentofi.github.io/motion-studio/)
 
 موقع لصناعة فيديوهات موشن جرافيك من قوالب جاهزة. بيشتغل كامل جوا المتصفح:
 ما في API key، ما في سيرفر، ما في اشتراك. التصدير لـ MP4 بيصير على جهاز المستخدم نفسه.
@@ -37,6 +37,19 @@ python3 -m http.server 8000
 
 النسخة المنشورة بتنبني من فرع `gh-pages`، فأي تعديل لازم ينرفع على `main` و `gh-pages` سوا
 (أو غيّر المصدر لـ `main` من Settings ← Pages).
+
+## النشر على سيرفرك (VPS)
+
+1. بلوحة الـ DNS تبع الدومين: سجل **A** اسمه `studio` بيأشّر على IP السيرفر.
+2. على السيرفر (Ubuntu أو Debian):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/nouraldeentofi/motion-studio/main/deploy/setup-vps.sh | sudo bash
+```
+
+السكربت بينزّل الموقع على `/var/www/studio.nouraldeentofi.com`، وبيظبط nginx (أو Apache إذا هو الموجود)،
+وبيطلّع شهادة HTTPS من Let's Encrypt. لتحدّث الموقع بعدين، شغّل نفس الأمر مرة تانية.
+الإعدادات موجودة بـ `deploy/nginx.conf` و `deploy/apache.conf`.
 
 ## المتصفحات
 
