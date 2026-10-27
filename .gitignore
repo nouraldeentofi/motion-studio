@@ -1,0 +1,6 @@
+dist/
+motion-studio.zip
+node_modules/
+*.mp4
+*.webm
+.DS_Store
