@@ -49,7 +49,7 @@ export async function exportVideo(project, { scale = 1, fps = 30, sound = true, 
   for (let f = 0; f < frames; f++) {
     if (signal && signal.aborted) { await output.cancel(); throw new DOMException('cancelled', 'AbortError'); }
     const t = f / fps;
-    if (f < coverFrames) { renderScene(ctx, coverScene, coverT, env); drawWatermark(ctx, env); }
+    if (f < coverFrames) { renderScene(ctx, coverScene, coverT, env); drawWatermark(ctx, env, project); }
     else renderFrame(ctx, project, (f - coverFrames) / fps, env);
     await vsrc.add(t, 1 / fps);
     if (f % 3 === 0) {

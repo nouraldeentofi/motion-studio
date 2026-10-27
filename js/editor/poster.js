@@ -16,7 +16,7 @@ export function renderSceneImage(sceneIdx, t, scale = 1, type = 'image/png') {
   c.height = Math.round(H * scale);
   const env = createEnv(S.project, W, H, scale, { images });
   renderScene(c.getContext('2d'), S.project.scenes[sceneIdx], t, env);
-  drawWatermark(c.getContext('2d'), env);
+  drawWatermark(c.getContext('2d'), env, S.project);
   return new Promise((res) => c.toBlob(res, type, 0.92));
 }
 
@@ -36,7 +36,7 @@ export async function openPoster(startIdx = S.sceneIdx) {
   const side = h('div', { class: 'pv-side' });
   const m = openModal({ title: 'بوستر / صورة غلاف', sub: 'اختار المشهد واللحظة، واحفظها كصورة للنشر أو كغلاف للفيديو.', size: 'mid', body: h('div', { class: 'poster-wrap' }, h('div', { style: { display: 'grid', placeItems: 'center' } }, canvas), side) });
   const env = () => createEnv(S.project, W, H, canvas.width / W, { images });
-  const draw = () => { const e = env(); renderScene(canvas.getContext('2d'), S.project.scenes[st.i], st.t, e); drawWatermark(canvas.getContext('2d'), e); };
+  const draw = () => { const e = env(); renderScene(canvas.getContext('2d'), S.project.scenes[st.i], st.t, e); drawWatermark(canvas.getContext('2d'), e, S.project); };
   const build = () => {
     const sc = S.project.scenes[st.i];
     if (st.t == null) st.t = holdTime(sc, env());

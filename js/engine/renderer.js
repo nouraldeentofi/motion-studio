@@ -343,7 +343,7 @@ export function renderFrame(ctx, project, t, env) {
   } else {
     renderScene(ctx, scene, local, env);
   }
-  drawWatermark(ctx, env);
+  drawWatermark(ctx, env, project);
 }
 
 // When every entrance has finished: the best moment to edit a scene.
