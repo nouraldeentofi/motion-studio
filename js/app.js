@@ -18,6 +18,7 @@ import { TEMPLATES, DEMO } from './templates/index.js';
 import * as AUD from './engine/audio.js';
 import { saveFile } from './export.js';
 import { clamp } from './engine/util.js';
+import { initWatermark } from './engine/watermark.js';
 
 function demoProject() {
   const p = newProject();
@@ -35,7 +36,7 @@ function demoProject() {
 async function boot() {
   document.documentElement.dir = 'rtl';
   document.documentElement.lang = 'ar';
-  const saved = await loadSaved();
+  const [saved] = await Promise.all([loadSaved(), initWatermark()]);
   S.project = saved ? saved.project : demoProject();
   S.project.sound = S.project.sound || { on: true, volume: 0.7 };
   S.sceneIdx = saved ? clamp(saved.sceneIdx || 0, 0, S.project.scenes.length - 1) : 0;

@@ -10,6 +10,7 @@ import * as UI from './el-ui.js';
 import * as FX from './el-fx.js';
 import { textMetrics } from './text.js';
 import { withBlur } from './paint.js';
+import { drawWatermark } from './watermark.js';
 
 export const ELEMENTS = {
   text: B.text, shape: B.shape, glow: B.glow, image: B.image, icon: B.icon, counter: B.counter, rotator: B.rotator,
@@ -342,6 +343,7 @@ export function renderFrame(ctx, project, t, env) {
   } else {
     renderScene(ctx, scene, local, env);
   }
+  drawWatermark(ctx, env);
 }
 
 // When every entrance has finished: the best moment to edit a scene.

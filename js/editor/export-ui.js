@@ -7,6 +7,7 @@ import { images, syncImages } from './stage.js';
 import { ensureFonts, projectFonts } from './fontsync.js';
 import { timeline } from '../engine/renderer.js';
 import { openPoster, renderSceneImage } from './poster.js';
+import { watermarkControl } from './wm-ui.js';
 
 const opts = { scale: 1, fps: 30, sound: true, cover: true };
 let lastUrl = null;
@@ -35,7 +36,7 @@ export function openExport() {
     if (hasCover) body.append(toggle('ابدأ بصورة الغلاف (عُشر ثانية)', opts.cover, (v) => (opts.cover = v)));
     const coverBtn = h('button', { class: 'btn small', type: 'button', style: { marginBottom: '12px' } }, icon('image'), hasCover ? 'غيّر صورة الغلاف' : 'اختار صورة غلاف للفيديو');
     coverBtn.addEventListener('click', () => { m.close(); openPoster(); });
-    body.append(coverBtn);
+    body.append(coverBtn, watermarkControl());
     const go = h('button', { class: 'btn primary block big', type: 'button' }, 'ابدأ التصدير');
     go.addEventListener('click', run);
     m.setFoot(null);

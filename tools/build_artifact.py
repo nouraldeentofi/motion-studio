@@ -11,6 +11,9 @@ for line in head.strip().splitlines():
     l = line.strip()
     if l.startswith('<meta charset') or l.startswith('<meta name="viewport"'):
         continue
+    # the Artifact host supplies its own icon and page metadata
+    if 'rel="icon"' in l or 'apple-touch-icon' in l or 'rel="manifest"' in l or 'property="og:' in l or 'name="theme-color"' in l:
+        continue
     keep.append(l)
 title = [l for l in keep if l.startswith('<title>')]
 rest = [l for l in keep if not l.startswith('<title>')]
@@ -21,9 +24,9 @@ dist = root / 'dist'
 dist.mkdir(exist_ok=True)
 (dist / 'artifact.html').write_text(out, encoding='utf-8')
 files = {}
-for d in ['css', 'js']:
+for d in ['css', 'js', 'icons']:
     for p in sorted((root / d).rglob('*')):
-        if p.is_file() and p.suffix in ('.css', '.js', '.mjs', '.txt'):
+        if p.is_file() and p.suffix in ('.css', '.js', '.mjs', '.txt') or p.name == 'icon.svg':
             rel = p.relative_to(root).as_posix()
             files[rel] = rel
 (dist / 'files.json').write_text(json.dumps(files, indent=1), encoding='utf-8')

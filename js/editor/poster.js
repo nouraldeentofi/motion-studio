@@ -6,6 +6,8 @@ import { renderScene, createEnv, ASPECTS, holdTime } from '../engine/renderer.js
 import { images, syncImages } from './stage.js';
 import { ensureFonts, projectFonts } from './fontsync.js';
 import { saveFile } from '../export.js';
+import { drawWatermark } from '../engine/watermark.js';
+import { watermarkControl } from './wm-ui.js';
 
 export function renderSceneImage(sceneIdx, t, scale = 1, type = 'image/png') {
   const [W, H] = ASPECTS[S.project.aspect] || ASPECTS['4:5'];
@@ -14,6 +16,7 @@ export function renderSceneImage(sceneIdx, t, scale = 1, type = 'image/png') {
   c.height = Math.round(H * scale);
   const env = createEnv(S.project, W, H, scale, { images });
   renderScene(c.getContext('2d'), S.project.scenes[sceneIdx], t, env);
+  drawWatermark(c.getContext('2d'), env);
   return new Promise((res) => c.toBlob(res, type, 0.92));
 }
 
@@ -33,7 +36,7 @@ export async function openPoster(startIdx = S.sceneIdx) {
   const side = h('div', { class: 'pv-side' });
   const m = openModal({ title: 'بوستر / صورة غلاف', sub: 'اختار المشهد واللحظة، واحفظها كصورة للنشر أو كغلاف للفيديو.', size: 'mid', body: h('div', { class: 'poster-wrap' }, h('div', { style: { display: 'grid', placeItems: 'center' } }, canvas), side) });
   const env = () => createEnv(S.project, W, H, canvas.width / W, { images });
-  const draw = () => renderScene(canvas.getContext('2d'), S.project.scenes[st.i], st.t, env());
+  const draw = () => { const e = env(); renderScene(canvas.getContext('2d'), S.project.scenes[st.i], st.t, e); drawWatermark(canvas.getContext('2d'), e); };
   const build = () => {
     const sc = S.project.scenes[st.i];
     if (st.t == null) st.t = holdTime(sc, env());
@@ -65,6 +68,7 @@ export async function openPoster(startIdx = S.sceneIdx) {
       rm.addEventListener('click', () => { delete S.project.poster; commit(); build(); toast('شلت الغلاف'); });
       side.append(rm);
     }
+    side.append(watermarkControl(draw));
     side.append(h('p', { class: 'hint' }, 'لينكدإن وإنستغرام بياخدوا أول لقطة كصورة للفيديو. لما تعيّن غلاف، بينحط بأول الفيديو لعُشر ثانية.'));
     draw();
   };

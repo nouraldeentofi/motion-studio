@@ -1,6 +1,7 @@
 // In-browser MP4 export: renders every frame with the same engine, encodes with WebCodecs (Mediabunny).
 import { renderFrame, renderScene, createEnv, ASPECTS, timeline } from './engine/renderer.js';
 import { renderAudio } from './engine/audio.js';
+import { drawWatermark } from './engine/watermark.js';
 
 const even = (v) => Math.max(2, Math.round(v / 2) * 2);
 
@@ -48,7 +49,7 @@ export async function exportVideo(project, { scale = 1, fps = 30, sound = true, 
   for (let f = 0; f < frames; f++) {
     if (signal && signal.aborted) { await output.cancel(); throw new DOMException('cancelled', 'AbortError'); }
     const t = f / fps;
-    if (f < coverFrames) renderScene(ctx, coverScene, coverT, env);
+    if (f < coverFrames) { renderScene(ctx, coverScene, coverT, env); drawWatermark(ctx, env); }
     else renderFrame(ctx, project, (f - coverFrames) / fps, env);
     await vsrc.add(t, 1 / fps);
     if (f % 3 === 0) {
