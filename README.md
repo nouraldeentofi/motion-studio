@@ -47,9 +47,11 @@ python3 -m http.server 8000
 curl -fsSL https://raw.githubusercontent.com/nouraldeentofi/motion-studio/main/deploy/setup-vps.sh | sudo bash
 ```
 
-السكربت بينزّل الموقع على `/var/www/studio.nouraldeentofi.com`، وبيظبط nginx (أو Apache إذا هو الموجود)،
-وبيطلّع شهادة HTTPS من Let's Encrypt. لتحدّث الموقع بعدين، شغّل نفس الأمر مرة تانية.
-الإعدادات موجودة بـ `deploy/nginx.conf` و `deploy/apache.conf`.
+السكربت بينزّل الموقع على `/var/www/studio.nouraldeentofi.com`، وبيضيفو لسيرفر الويب الشغّال أصلاً على البورت 80/443
+(Caddy أو nginx أو Apache) بدون ما يشغّل سيرفر تاني جنبو، فباقي المواقع على السيرفر بتضل شغّالة.
+مع Caddy الشهادة بتطلع لحالها، ومع nginx و Apache بيطلّعها من Let's Encrypt. إذا لقى شي تاني (Docker مثلاً) ما بيغيّر شي وبيوقف.
+لتحدّث الموقع بعدين، شغّل نفس الأمر مرة تانية.
+الإعدادات موجودة بـ `deploy/caddy.conf` و `deploy/nginx.conf` و `deploy/apache.conf`.
 
 ## المتصفحات
 
