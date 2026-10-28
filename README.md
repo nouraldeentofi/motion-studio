@@ -1,6 +1,9 @@
 # استوديو الموشن (Nour Motion Studio)
 
-**جرّبه هون:** https://studio.nouraldeentofi.com · (نسخة GitHub Pages: https://nouraldeentofi.github.io/motion-studio/)
+**جرّبه هون:** https://nouraldeentofi.com/motion-studio/
+
+النسخة على الدومين بتتنسخ من فرع `gh-pages`: بعد أي تحديث هون، بريبو الموقع `nouraldeentofi.github.io` شغّل
+`npm run sites -- motion-studio` و `npm run check` وارفع.
 
 موقع لصناعة فيديوهات موشن جرافيك من قوالب جاهزة. بيشتغل كامل جوا المتصفح:
 ما في API key، ما في سيرفر، ما في اشتراك. التصدير لـ MP4 بيصير على جهاز المستخدم نفسه.
